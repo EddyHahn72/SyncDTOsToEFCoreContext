@@ -2,7 +2,7 @@
 namespace HenryHarrow.EntityFrameworkCore
 {
 
-    public enum SoftDeleteValueEnum
+    public enum SoftDeleteValue
     {
         ValueOfPrimaryKey,
         PresetValue
@@ -11,11 +11,11 @@ namespace HenryHarrow.EntityFrameworkCore
     [AttributeUsage(AttributeTargets.Class)]
     public class SoftDeleteAttribute : Attribute
     {
-        private string softDeletePropertyName;
-        private SoftDeleteValueEnum valueType;
-        private object value;
+        private readonly string softDeletePropertyName;
+        private readonly SoftDeleteValue valueType;
+        private readonly object value;
 
-        public SoftDeleteAttribute(string softDeletePropertyName, SoftDeleteValueEnum valueType = SoftDeleteValueEnum.ValueOfPrimaryKey, object value = null)
+        public SoftDeleteAttribute(string softDeletePropertyName, SoftDeleteValue valueType = SoftDeleteValue.ValueOfPrimaryKey, object value = null)
         {
             this.softDeletePropertyName = softDeletePropertyName;
             this.valueType = valueType;
@@ -23,7 +23,7 @@ namespace HenryHarrow.EntityFrameworkCore
         }
 
         public string SoftDeletePropertyName { get { return softDeletePropertyName; } }
-        public SoftDeleteValueEnum ValueType { get { return valueType; } }
+        public SoftDeleteValue ValueType { get { return valueType; } }
         public object Value { get { return value; } }
     }
 }

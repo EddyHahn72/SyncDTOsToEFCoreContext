@@ -45,7 +45,7 @@ namespace HenryHarrow.EntityFrameworkCore
                     //mark it undchanged so the generated update does not include all columns
                     item.State = EntityState.Unchanged;
                     //here need to set the LCV
-                    if (attr.ValueType == SoftDeleteValueEnum.PresetValue)
+                    if (attr.ValueType == SoftDeleteValue.PresetValue)
                     {
                         var prop = itemType.GetProperty(attr.SoftDeletePropertyName);
 
