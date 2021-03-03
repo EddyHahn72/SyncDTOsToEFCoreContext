@@ -1,0 +1,67 @@
+﻿
+EF:
+dotnet tool install --global dotnet-ef
+dotnet tool install --global dotnet-aspnet-codegenerator
+dotnet ef dbcontext scaffold "server=mac0;port=5433;database=henryharrow;username=admin;password=;" Npgsql.EntityFrameworkCore.PostgreSQL -o DbSchema --no-pluralize --force --context HenryHarrowContext
+
+
+
+
+Tools to install:
+npx yarn add @openapitools/openapi-generator-cli
+npm install -g @openapitools/openapi-generator-cli
+
+
+
+Generate:
+openapi-generator-cli generate \
+   -i http://localhost:5000/swagger/v1/swagger.json \
+   -g swift5 \
+   -o ./tmp
+
+
+
+
+sample data
+
+
+
+create table ref.order
+(
+	order_id int generated always as identity,
+	ordernumber varchar(16) not null,
+	lcv int
+);
+
+alter table ref.order add constraint pk_order primary key (order_id);
+
+create table ref.orderdetail
+(
+	orderdetail_id	int generated always as identity,
+	order_id	int not null,
+	description varchar(32),
+	lcv int
+);
+
+alter table ref.orderdetail add constraint pk_orderdetail primary key (orderdetail_id);
+
+alter table ref.orderdetail add constraint fk_orderdetail_order foreign key (order_id) references ref.order (order_id);
+
+create index ndx_orderdetail_order_id on ref.orderdetail (order_id);
+
+insert into ref.order (ordernumber) values('00000001');
+insert into ref.order (ordernumber) values('00000002');
+insert into ref.order (ordernumber) values('00000003');
+
+insert into ref.orderdetail (order_id, description) values ( 1, 'Order 1 Line 1');
+insert into ref.orderdetail (order_id, description) values ( 1, 'Order 1 Line 2');
+insert into ref.orderdetail (order_id, description) values ( 1, 'Order 1 Line 3');
+insert into ref.orderdetail (order_id, description) values ( 2, 'Order 2 Line 1');
+insert into ref.orderdetail (order_id, description) values ( 2, 'Order 2 Line 3');
+insert into ref.orderdetail (order_id, description) values ( 3, 'Order 3 Line 1');
+
+
+
+
+
+
